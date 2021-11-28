@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 867 685" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule: evenodd; stroke: #000000; stroke-linecap: square; font-size: 5px; font-weight: lighter; clip-rule: evenodd; stroke-miterlimit: 1.5">
+    <rect width="100%" height="100%" style="fill: #ffffff"/>
+    
+    <path d="M 713.9 413 l 0 -272.6 m 0 -8 l 0 -132.4 m 97.8 498.7 l 0 1.2 l 40.5 0 l 0 17.4 l 14.4 0 l -60.5 0 l 0 3.8 m -267.1 0 l -87.8 0 l 0.1 25.2 m 324.8 -88.5 l 0 -11.5 m 0 -18 l 0 -15.4 l -324.9 0 m 324.9 -7.9 l -2.7 0 l 0.1 -51 l 3.1 0 m 0 -12.1 l -3.1 0 l 0.1 -53 l 3 0 m 0 -11.1 l -3 0 l 0.2 -105.3 l 3.3 0 m 0.8 -9.5 l -64.2 0 m 64.2 -62.5 l -64.2 0 m 152.7 -100.8 l -152.7 0 m 76.2 100.8 l 0 -100.8 m 76.6 100.8 l -64.2 0 m -12.4 144.1 l 0 -59.1 l -16 0 m 92.7 -22.5 l -60.7 0 l 0 51.2 l -2.2 0 m 0 12.1 l 2.2 0 l 0 51.6 l -2.2 0 m 0 12.4 l 2.2 0 l 0 51.5 l -2.2 0 m 0 12.2 l 2.2 0 l 0 51 l -2.2 0 m 0 12.4 l 2.4 0 l 0 50.8 l -6 0 m 3.6 11.3 l 62.8 0 l 0 41.5 l -299.5 0 m 299.5 -41.5 l 0 -479.5 m -152.5 521 l 0 -11.7 m 0 -18 l 0 -11.7 m 14.6 -66.6 l 0 66.6 m -14.8 -190.5 l 59.9 0 m 32.2 1.4 l 60.7 0 m -60.7 -64 l 60.7 0 m -60.7 127.6 l 60.7 0 m -60.7 63.4 l 60.7 0 m -137.9 19.8 l 48.2 0 m -48.2 18.2 l 47.4 0 m -47.4 -8.9 l 13.2 0 m -13.2 17.8 l 13.2 0 m -13.2 9.1 l 12.4 0 l 0 2.2 m -290 -8.7 l 254.4 0 l 0 12.6 l 35.6 0 l 0 -4 l 8.3 0 l 0 4 l 26.7 0 l 0 -13.4 m -346.5 98.4 l -50.6 0 l 0 -25.7 l 50.6 0 l 0 14.9 m 0 -14.9 l 0 -223.2 l 21.6 0 l 0 151.4 m 324.9 1.4 l 6 0 m 29.5 12.5 l 0 -1.2 m -380.3 50.5 l -1.8 0 m 21.6 0 l -1.8 0" style="fill: none; stroke: #000000; stroke-width: 0.8px"/>
+
+    <!-- Entree -->
+    <text x="553" y="521">0</text>
+
+    <!-- Receptie -->
+    <text x="553" y="501">1</text>
+    <text x="714" y="501">204</text>
+
+    <!-- Foo Bar -->
+    <text x="790" y="132">2</text>
+
+    <!-- Collegezalen: gangen -->
+    <text x="441" y="501">31</text>
+    <text x="441" y="530">32</text>
+    <text x="441" y="559">33</text>
+    <text x="790" y="501">3</text>
+    <text x="790" y="474">4</text>
+    <text x="790" y="409">5</text>
+    <text x="790" y="348">6</text>
+    <text x="790" y="284">7</text>
+    <text x="798" y="244">8</text>
+    <text x="798" y="220">9</text>
+    <text x="798" y="185">10</text>
+    <text x="790" y="168">11</text>
+
+    <!-- Collegezalen: deuren -->
+    <text x="805" y="474">12</text>
+    <text x="805" y="409">13</text>
+    <text x="805" y="348">14</text>
+    <text x="805" y="284">15</text>
+    <text x="805" y="220">16</text>
+    <text x="775" y="409">17</text>
+    <text x="775" y="348">18</text>
+    <text x="775" y="284">19</text>
+    <text x="775" y="168">20</text>
+    <text x="784" y="101">21</text>
+    <text x="796" y="101">22</text>
+
+    <!-- Collegezalen: multis -->
+    <text x="745" y="378">23</text>
+    <text x="745" y="226">24</text>
+
+    <!-- Trappen -->
+    <text x="824" y="509">25</text>
+    <text x="812" y="509">26</text>
+    <text x="852" y="509">27</text>
+    <text x="782" y="244">28</text>
+    <text x="782" y="226">29</text>
+    <text x="782" y="186">30</text>
+
+
+    <text x="430"  y="559">34</text>
+    <text x="422"  y="559">35</text><!-- omhoog -->
+    <text x="386"  y="559">36</text><!-- omhoog -->
+    <text x="386"  y="547">37</text><!-- omhoog -->
+    <text x="422"  y="547">38</text><!-- omhoog -->
+</svg>
