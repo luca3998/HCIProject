@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graph</title>
+</head>
+<body>
+
+    <!-- 
+        Test pagina voor het dynamisch weergeven van allerlei data in
+        onderstaande svg
+     -->
+
+    <!-- SVG floor plan -->
+    <svg id="svg" height="95vh" viewBox="0 0 867 685" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule: evenodd; stroke: #000; stroke-linecap: square; clip-rule: evenodd; stroke-miterlimit: 1.5t">
+        <path d="m501.6,413l212.4,0l0,-272.6m0,-8l0,-132.4m97.8,499.9l40.5,0l0,17.4l14.4,0l-60.5,0l0,3.8m-267.1,0l-87.8,0l0.1,25.2m324.8,-88.5l0,-11.5m0,-18l0,-15.4l-62.2,0m62.2,-7.9l-2.7,0l0.1,-51l3.1,0m0,-12.1l-3.1,0l0.1,-53l3,0m0,-11.1l-3,0l0.2,-105.3l3.3,0m0.8,-9.5l-64.2,0m64.2,-62.5l-64.2,0m152.7,-100.8l-152.7,0m76.2,100.8l0,-100.8m76.6,100.8l-64.2,0m-12.4,144.1l0,-59.1l-16,0m92.7,-22.5l-60.7,0l0,51.2l-2.2,0m0,12.1l2.2,0l0,51.6l-2.2,0m0,12.4l2.2,0l0,51.5l-2.2,0m0,12.2l2.2,0l0,51l-2.2,0m0,12.4l2.4,0l0,50.8l-2.4,0m0,11.3l62.8,0l0,41.5l-299.5,0m299.5,-41.5l0,-479.5m-246,413l0,53.9m43.8,-53.9l0,53.9m41.2,-53.9l0,53.9m23.1,-53.9l0,66.6m-14.8,-190.5l59.9,0m32.2,1.4l60.7,0m-60.7,-64l60.7,0m-60.7,127.6l60.7,0m-60.7,63.4l60.7,0m-137.9,19.8l48.2,0m-48.2,18.2l47.4,0m-47.4,-8.9l13.2,0m-13.2,17.8l13.2,0m-13.2,9.1l12.4,0l0,2.2m-239.6,-8.7l204,0l0,12.6l35.6,0l0,-4l8.3,0l0,4l26.7,0l0,-13.4m-346.5,98.4l-50.6,0l0,-43.5l50.6,0l0,32.7m-50.6,-14.9l50.6,0m0,-17.7l0,-205.5l71.9,0l0,151.4"style="fill:none;stroke-width:0.8px"/>
+    </svg>
+    
+    
+    <!-- graph 'import' -->
+    <script src="graph.js"></script>
+    <script>
+        const svg = document.getElementById('svg');
+
+        /* svg namespace */
+        const svgns = "http://www.w3.org/2000/svg";
+
+        /* draw vertices */
+        for (const idx in graph.vertices)
+        {   
+            const vertex = graph.vertices[idx];
+            let c = document.createElementNS(svgns, "circle");
+            c.setAttribute("cx", vertex.x);
+            c.setAttribute("cy", vertex.y);
+            c.setAttribute("r", "1");
+            svg.appendChild(c);
+        }
+
+        /* add distances to svg */
+        const distance = (a,b) => Math.round(Math.sqrt(Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2)));
+        for (let start = 0; start < graph.adjacency.length; start++) {
+            for (const j in graph.adjacency[start]) {
+                let end = graph.adjacency[start][j].vertex;
+                
+                let t = document.createElementNS(svgns, "text");
+                t.textContent = distance(graph.vertices[start], graph.vertices[end]);
+                t.setAttribute('x', (graph.vertices[start].x + graph.vertices[end].x)/2);
+                t.setAttribute('y', (graph.vertices[start].y + graph.vertices[end].y)/2);
+                t.style = 'font-size:7px';
+                svg.appendChild(t);
+            }
+        }
+
+        /* draw edges on svg */
+        for (const i in graph.adjacency)
+        {
+            const start = graph.vertices[i];
+            for (const j in graph.adjacency[i])
+            {
+                const end = graph.vertices[graph.adjacency[i][j].vertex];
+                let l = document.createElementNS(svgns, "line");
+                l.setAttribute("x1", start.x);
+                l.setAttribute("y1", start.y);
+                l.setAttribute("x2", end.x);
+                l.setAttribute("y2", end.y);
+                svg.appendChild(l);
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculate weights</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        textarea {
+            width: 99vw;
+            height: 99vh;
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- 
+        Met deze pagina kunnen makkelijk de gewichten worden toegevoegd aan de
+        adjacencylist van een bestaande, ongewogen graaf. 
+
+        Als 'invoer' object nemen we de graph uit unweightedgraph.js
+        De uitvoer zal in onderstaande textarea worden geplaatst.
+        Zo is dit eenvoudig te kopieren
+     -->
+
+    <textarea id="output"></textarea>
+    
+    <!-- unweighted graph 'import' -->
+    <script src="unweightedGraph.js"></script>
+    <script>
+        /* Pythagoras distance formula */
+        const distance = (a,b) => Math.round(Math.sqrt(Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2)));
+
+        /* calculate distance (weight) for every adjacent vertex */
+        for (let from = 0; from < graph.adjacency.length; from++) {
+            let adjacency = [];
+            for (const j in graph.adjacency[from]) {
+                let to = graph.adjacency[from][j];
+                adjacency.push({
+                    vertex: to,
+                    weight: distance(graph.vertices[from], graph.vertices[to])
+                });
+            }
+            graph.adjacency[from] = adjacency;
+        }
+
+        document.getElementById('output').value = 'const graph = ' + JSON.stringify(graph);
+    </script>
+</body>
+</html>
