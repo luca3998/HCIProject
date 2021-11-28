@@ -1,0 +1,77 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>SINAS</title>
+    <meta name="description" content="SINAS">
+    <meta name="author" content="SitePoint">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+
+
+    <link rel="stylesheet" href="home.css">
+    <script src="../concepts/graph.js" defer></script>
+    <script src="home.js" defer></script>
+    
+    
+</head>
+
+<body onload="">
+    <div class="content-center">
+        <nav class="flex bg-gray-200 p-4">
+            <div class="mx-auto">
+                <a href="Home.html" class="font-semibold object-bottom text-xl xl:text-xl tracking-tight">Snellius
+                    Navigator</a>
+            </div>
+
+        </nav>
+
+        <div class="mx-auto text-center">
+
+            <div class="text-3xl xl:text-4xl xl:py-20 xl:pt-20 p-7">
+                <h1 class="font-medium xl:pt-0"> Where do you want to go? </h1>
+            </div>
+
+
+
+            <div class="inputs ">
+                <h2 class="xl:text-xl  p-7 text-xl">From:</h2>
+                <input class="bg-gray-200 p-4 text-xl rounded-lg" list="ice-cream-flavors" id="start" />
+                <datalist id="ice-cream-flavors">
+                    <option value="0">
+                    <option value="1">
+                    <option value="2">
+                    <option value="3">
+                    <option value="4">
+                </datalist>
+
+                <h2 class="xl:text-xl p-7 text-xl">To:</h2>
+                <input class="p-4 bg-gray-200 text-xl rounded-lg" list="destinations" id="end" />
+
+                <datalist id="destinations">
+                    <option value="0">
+                    <option value="1">
+                    <option value="2">
+                    <option value="3">
+                    <option value="4">
+                </datalist>
+            </div>
+
+            <button onclick="values()"
+                class="bg-gray-300 rounded-lg m-20 text-black text-xl xl:text-xl font-normal p-4 border-b-4">
+                Get Directions
+            </button>
+
+        </div>
+    </div>
+
+</body>
+
+</html>

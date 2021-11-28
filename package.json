@@ -1,0 +1,23 @@
+{
+  "name": "hciproject",
+  "version": "1.0.0",
+  "description": "",
+  "main": "home.js",
+  "scripts": {
+    "build-css": "tailwindcss build website/styles.css -o website/home.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luca3998/HCIProject.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/luca3998/HCIProject/issues"
+  },
+  "homepage": "https://github.com/luca3998/HCIProject#readme",
+  "dependencies": {
+    "tailwindcss": "^2.2.19"
+  }
+}
