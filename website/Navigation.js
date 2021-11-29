@@ -100,7 +100,8 @@ function drawpath(path)
         l.setAttribute("x2", end.x);
         l.setAttribute("y2", end.y);
         l.setAttribute("stroke", "red");
-        l.setAttribute("stroke-width", "4");
+        l.setAttribute("stroke-width", "2");
+        l.setAttribute("stroke-dasharray","8 4 ")
         svg.appendChild(l);
     }
 }
@@ -135,3 +136,4 @@ function toggleZoom(){
         localStorage.setItem("overviewmode","disabled");
     }
 }
+
