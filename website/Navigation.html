@@ -22,7 +22,7 @@
 
 </head>
 
-<body onload="test()">
+<body onload="test();generateSteps();">
     <nav class="flex bg-gray-200 p-4">
         <div class="mx-auto">
             <a href="Home.html" class="font-semibold object-bottom text-xl xl:text-xl tracking-tight">Snellius
@@ -42,7 +42,7 @@
 
     <div class="block p-4 xl:flex items-center">
         <!-- viewbox: minX minY width height -->
-        <svg id="svg" class="mx-auto p-4 border-4 m-4" width="90%" height="90%" viewBox="400 300 300 300"
+        <svg id="svg" class="mx-auto p-4 border-4 m-4" width="90%" height="90%" viewBox="400 350 300 300"
             version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
             xml:space="preserve" xmlns:serif="http://www.serif.com/"
             style="fill-rule: evenodd; stroke: #000; stroke-linecap: square; clip-rule: evenodd; stroke-miterlimit: 1.5t">
@@ -52,18 +52,18 @@
         </svg>
 
         <div class="p-4 m-4 bg-gray-200 rounded-lg shadow-lg">
-            <h1 class="text-xl font-medium">Step 1</h1>
-            <p class="text-xl font-light">Take a right</p>
+            <h1 id="step_number" class="text-xl font-medium">Step 1</h1>
+            <p id="description_container" class="text-xl font-light">Take a right</p>
         </div>
 
 
         <!-- Deze komt dus alleen als je in een volgende stap zit -->
-        <button onclick="window.location.href='Home.html'"
+        <button onclick="previousStep()"
             class="bg-gray-300  float-left rounded-lg m-4 text-black text-xl xl:text-xl font-normal p-4 border-b-4">
             Previous
         </button>
 
-        <button onclick="window.location.href='Home.html'"
+        <button onclick="nextStep()"
             class="bg-gray-300  float-right rounded-lg m-4 text-black text-xl xl:text-xl font-normal p-4 border-b-4">
             Next
         </button>

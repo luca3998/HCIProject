@@ -10013,6 +10013,30 @@ video {
   }
 }
 
+@-webkit-keyframes fade-in-down {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in-down {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .animate-none {
   -webkit-animation: none;
           animation: none;
@@ -10036,6 +10060,11 @@ video {
 .animate-bounce {
   -webkit-animation: bounce 1s infinite;
           animation: bounce 1s infinite;
+}
+
+.animate-fade-in-down {
+  -webkit-animation: fade-in-down 0.5s ease-out;
+          animation: fade-in-down 0.5s ease-out;
 }
 
 .cursor-auto {
@@ -41618,6 +41647,11 @@ video {
             animation: bounce 1s infinite;
   }
 
+  .sm\:animate-fade-in-down {
+    -webkit-animation: fade-in-down 0.5s ease-out;
+            animation: fade-in-down 0.5s ease-out;
+  }
+
   .sm\:cursor-auto {
     cursor: auto;
   }
@@ -72844,6 +72878,11 @@ video {
   .md\:animate-bounce {
     -webkit-animation: bounce 1s infinite;
             animation: bounce 1s infinite;
+  }
+
+  .md\:animate-fade-in-down {
+    -webkit-animation: fade-in-down 0.5s ease-out;
+            animation: fade-in-down 0.5s ease-out;
   }
 
   .md\:cursor-auto {
@@ -104074,6 +104113,11 @@ video {
             animation: bounce 1s infinite;
   }
 
+  .lg\:animate-fade-in-down {
+    -webkit-animation: fade-in-down 0.5s ease-out;
+            animation: fade-in-down 0.5s ease-out;
+  }
+
   .lg\:cursor-auto {
     cursor: auto;
   }
@@ -135300,6 +135344,11 @@ video {
   .xl\:animate-bounce {
     -webkit-animation: bounce 1s infinite;
             animation: bounce 1s infinite;
+  }
+
+  .xl\:animate-fade-in-down {
+    -webkit-animation: fade-in-down 0.5s ease-out;
+            animation: fade-in-down 0.5s ease-out;
   }
 
   .xl\:cursor-auto {
@@ -166530,6 +166579,11 @@ video {
             animation: bounce 1s infinite;
   }
 
+  .\32xl\:animate-fade-in-down {
+    -webkit-animation: fade-in-down 0.5s ease-out;
+            animation: fade-in-down 0.5s ease-out;
+  }
+
   .\32xl\:cursor-auto {
     cursor: auto;
   }
@@ -188384,3 +188438,4 @@ video {
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
+
