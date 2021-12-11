@@ -59,18 +59,18 @@
         </svg>
 
         <div class="p-4 m-4 bg-gray-200 rounded-lg shadow-lg">
-            <h1 id="step_number" class="text-xl font-medium">Step 1</h1>
-            <p id="description_container" class="text-xl font-light">Take a right</p>
+            <h1 id="step_number" class="text-xl font-medium"></h1>
+            <p id="description_container" class="text-xl font-light"></p>
         </div>
 
 
         <!-- Deze komt dus alleen als je in een volgende stap zit -->
-        <button onclick="previousStep()"
+        <button id="previousButton" onclick="previousStep()"
             class="bg-gray-300  float-left rounded-lg m-4 text-black text-xl xl:text-xl font-normal p-4 border-b-4">
             Previous
         </button>
 
-        <button onclick="nextStep()"
+        <button id="nextButton" onclick="nextStep()"
             class="bg-gray-300  float-right rounded-lg m-4 text-black text-xl xl:text-xl font-normal p-4 border-b-4">
             Next
         </button>

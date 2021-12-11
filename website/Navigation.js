@@ -129,6 +129,14 @@ function drawpath(path)
 }
 
 
+
+
+
+
+let steps = [];
+let currentStep = 0;
+const path = shortestPath(localStorage.getItem('start'),localStorage.getItem('end'));
+
 function test(){
     console.log("Gettingvalues");
     console.log(localStorage.getItem('start'), localStorage.getItem('end'))
@@ -137,13 +145,6 @@ function test(){
     let end = localStorage.getItem('end');
     drawpath(shortestPath(start,end));
 }
-
-
-
-let steps = [];
-let currentStep = 0;
-const path = shortestPath(localStorage.getItem('start'),localStorage.getItem('end'));
-
 
 function toggleZoom(){
     let svg = document.querySelector("svg");
@@ -167,7 +168,9 @@ function toggleZoom(){
         updateMap();
     }
 }
+
 function generateSteps(){
+
     const amountOfSteps = path.length - 1;
 
     for(let j = 0; j <= amountOfSteps;j++) {
@@ -183,7 +186,7 @@ function generateSteps(){
 
 function previousStep(){
     currentStep -= 1;
-    document.getElementById("step_number").innerHTML = "Step " + currentStep;
+    document.getElementById("step_number").innerHTML = "Step " + (currentStep+1);
     document.getElementById("description_container").innerHTML = steps[currentStep].description;
     updateMap();
     
@@ -191,7 +194,7 @@ function previousStep(){
 
 function nextStep(){
     currentStep += 1;
-    document.getElementById("step_number").innerHTML = "Step " + currentStep;
+    document.getElementById("step_number").innerHTML = "Step " + (currentStep+1);
     document.getElementById("description_container").innerHTML = steps[currentStep].description;
     updateMap()
 }
@@ -230,8 +233,6 @@ function updateMap(){
     currentLocation.setAttribute("cx", x1);
     currentLocation.setAttribute("cy", y1);
     svg.appendChild(currentLocation);
-    
-
 
     svg.setAttribute("viewBox", (x1-150) + ' ' + (y1-150) + " 300 300"); 
     // svg.setAttribute("viewBox", (middle_x-150) + ' ' + (middle_y-150) + " 300 300"); 
@@ -242,9 +243,8 @@ function updateMap(){
     svg.classList.remove(svg.classList[5]);
     svg.classList.add(rotation);
 
-    // svg.setAttribute("-webkit-transform",`rotate(${rotation})`);
     defineDescriptions();
-    
+
     if (Math.abs(diff_x) >= Math.abs(diff_y))
         rotation = `rotate-${diff_x > 0 ? 90 : 270}`;
     else
@@ -257,6 +257,8 @@ function defineDescriptions(){
     // Kijken naar de aangrenzende nodes en op basis daarvan een direction definieren 
     console.log(currentStep, path.length);
     if(currentStep > 0 && currentStep+1 < path.length-1){
+        document.getElementById("previousButton").classList.remove("hidden"); // show the the previous button
+        document.getElementById("nextButton").classList.remove("hidden"); // show the next button
         let prev = graph.vertices[path[currentStep-1]];
         let curr = graph.vertices[path[currentStep]];
         let next = graph.vertices[path[currentStep+1]];
@@ -284,7 +286,10 @@ function defineDescriptions(){
         }
     } else if (currentStep+1 === path.length-1) {
         document.getElementById("description_container").innerHTML = "Bestemming bereikt";
+        document.getElementById("nextButton").classList.add("hidden"); // hide the next button
     } else {
+        document.getElementById("previousButton").classList.add("hidden"); // hide the previous button, this is step 1
+        document.getElementById("nextButton").classList.remove("hidden"); // show the next button, this is step 1
         document.getElementById("description_container").innerHTML = "Ga rechtdoor";
     }
 }
