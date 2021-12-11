@@ -165,7 +165,7 @@ function toggleZoom(){
         localStorage.setItem("overviewmode", "enabled");
     } else {
         localStorage.setItem("overviewmode","disabled");
-        updateMap();
+        svg.setAttribute("viewBox", (graph.vertices[path[currentStep]].x-150) + ' ' + (graph.vertices[path[currentStep]].y-150) + " 300 300"); 
     }
 }
 
