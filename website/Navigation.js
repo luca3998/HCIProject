@@ -249,7 +249,6 @@ function updateMap(){
     // svg.setAttribute("viewBox", (middle_x-150) + ' ' + (middle_y-150) + " 300 300"); 
     let diff_x = x1 - x2; // if positive, west, negative, east
     let diff_y = y1 - y2; // if positive, north, negative, south
-
     
     svg.classList.remove(svg.classList[5]);
     svg.classList.add(rotation);
