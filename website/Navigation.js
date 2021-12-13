@@ -237,29 +237,26 @@ function updateMap(){
             document.getElementById("secondfloor").classList.remove("hidden");
             break;
     }
-    
-    let middle_x = (x1 + x2) / 2;
-    let middle_y = (y1 + y2) / 2;
 
     currentLocation.setAttribute("cx", x1);
     currentLocation.setAttribute("cy", y1);
     svg.appendChild(currentLocation);
 
     svg.setAttribute("viewBox", `${x1-100} ${y1-100} 200 200`);
-    // svg.setAttribute("viewBox", (middle_x-150) + ' ' + (middle_y-150) + " 300 300"); 
     let diff_x = x1 - x2; // if positive, west, negative, east
     let diff_y = y1 - y2; // if positive, north, negative, south
     
-    svg.classList.remove(svg.classList[5]);
-    svg.classList.add(rotation);
-    rotateLabels(svg, rotation.split('-')[1]);
-
-    defineDescriptions();
-
     if (Math.abs(diff_x) >= Math.abs(diff_y))
         rotation = `rotate-${diff_x > 0 ? 90 : 270}`;
     else
         rotation = `rotate-${diff_y > 0 ? 0 : 180}`;
+    
+    svg.classList.remove(svg.classList[5]); // remove rotation
+    svg.classList.add(rotation); // add rotation
+    rotateLabels(svg, rotation.split('-')[1]);
+
+    defineDescriptions();
+
 
     // make sure up is the right one.
 }
@@ -326,3 +323,33 @@ function defineDescriptions(){
 // bij 'multilokalen' wordt de verbindende knoop nooit weergegeven:
 //   bij vertrek start de route bij een deur
 //   bij aankomst eindigt de route bij een deur
+
+
+
+
+/* 
+const path = shortestPath(localStorage.getItem('start'),localStorage.getItem('end'));
+// [0, 1, 204, 3, 26, 25, 27, 81, 82, 83]
+
+const directions = [];
+// huidigeknoop (x,y)
+// volgendeknoop (x,y)
+// description
+// floor
+// rotation
+
+const direction = {[]:}
+
+for (ding in lijst)
+    if (type === stairs) {
+        while (interstairs) {
+            weghalen
+        }
+        // bepaal naarboven of naarbeneden
+    } else {
+        getRotation()
+
+    }
+}
+ 
+ */
