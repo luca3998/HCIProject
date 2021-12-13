@@ -199,6 +199,17 @@ function nextStep(){
     updateMap()
 }
 
+function rotateLabels(floor, rotation) {
+    const labels = floor.getElementsByTagName('text');
+    for (let idx = 0; idx < labels.length; idx++) {
+        const bbox = labels[idx].getBBox();
+        const x = bbox.x + (bbox.width/2);
+        const y = bbox.y + (bbox.height/2);
+        labels[idx].setAttribute('transform', `rotate(-${rotation} ${x},${y})`);
+        console.log(labels[idx].style.transform);
+    }
+}
+
 let rotation = 'rotate-0';
 function updateMap(){
     // Calculate x1, x2, change between both, make sure way up is the right one 
@@ -207,7 +218,7 @@ function updateMap(){
     let y1 = graph.vertices[path[currentStep]].y; 
     let x2 = graph.vertices[path[currentStep+1]].x; 
     let y2 = graph.vertices[path[currentStep+1]].y; 
-    let z = graph.vertices[path[currentStep]].z;
+    let z  = graph.vertices[path[currentStep]].z;
     
     switch(z){ // Om de juiste svg te laden 
         case 1:
@@ -234,7 +245,7 @@ function updateMap(){
     currentLocation.setAttribute("cy", y1);
     svg.appendChild(currentLocation);
 
-    svg.setAttribute("viewBox", (x1-150) + ' ' + (y1-150) + " 300 300"); 
+    svg.setAttribute("viewBox", `${x1-100} ${y1-100} 200 200`);
     // svg.setAttribute("viewBox", (middle_x-150) + ' ' + (middle_y-150) + " 300 300"); 
     let diff_x = x1 - x2; // if positive, west, negative, east
     let diff_y = y1 - y2; // if positive, north, negative, south
@@ -242,6 +253,7 @@ function updateMap(){
     
     svg.classList.remove(svg.classList[5]);
     svg.classList.add(rotation);
+    rotateLabels(svg, rotation.split('-')[1]);
 
     defineDescriptions();
 
