@@ -1,6 +1,7 @@
+/* on "Get directions" click */
 function values(){
-    localStorage.setItem('start', document.getElementById('start').value)
-    localStorage.setItem('end', document.getElementById('end').value)
+    localStorage.setItem('start', document.getElementById('start').dataset.index)
+    localStorage.setItem('end', document.getElementById('end').dataset.index)
     console.log("values are: ", localStorage.getItem('start'), localStorage.getItem('end'));
     window.location.href="Navigation.html";
 }
@@ -15,10 +16,15 @@ function getSuggestions(substring) {
     // if (substring === '')
     //     return suggestions;
 
-    for (const idx in data) 
-        if (data[idx].includes(substring))
-            suggestions.push(data[idx]);
-
+    /* find and print matching search queries */
+    for (const idx in graph.vertices)
+        for (const query in graph.vertices[idx].queries)
+            if (graph.vertices[idx].queries[query].includes(substring))
+                suggestions.push({
+                    index: idx,
+                    query: graph.vertices[idx].queries[query]
+                });
+    
     return suggestions;
 }
 function showSuggestions(e) {
@@ -31,12 +37,14 @@ function showSuggestions(e) {
 
     suggestions.forEach(suggestion => {
         let li = document.createElement('p',);
-        li.innerText = suggestion;
+        li.innerText = suggestion.query;
+        li.dataset.index = suggestion.index;
         li.classList.add('p-1.5','text-xl');
         li.addEventListener('click', (click) => {
             input.value = click.target.innerText;
+            click.target.parentElement.previousElementSibling.dataset.index = click.target.dataset.index;
             output.innerHTML = '';
-            output.classList.toggle('hidden', true);
+            output.classList.toggle('hidden', true);            
         });
         output.appendChild(li);
     });

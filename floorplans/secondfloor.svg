@@ -124,6 +124,9 @@
     <text x="453" y="439">305</text>
     <text x="453" y="447">306</text>
 
+    <text x="427" y="439">310</text>
+    <text x="427" y="447">311</text>
+
 
     <!-- Lecturers: trappen -->
     <text x="430" y="559">307</text>
@@ -171,12 +174,13 @@
     <text x="20" y="279">238a</text>
     <text x="20" y="279">240</text>
     <text x="20" y="348">242</text>
+    <text x="20" y="318">245</text>
     <text x="20" y="379">244</text>
     <text x="20" y="408">246a</text>
 
     <text x="20" y="440">246b</text>
     <text x="20" y="475">248</text>
-    <text x="20" y="505">256</text>
+    <text x="20" y="505">250</text>
     <text x="20" y="540">252</text>
 
     <text x="365" y="280">209</text>

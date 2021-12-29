@@ -51,7 +51,8 @@
     <text x="852" y="509">27</text>
     <text x="859" y="509">81</text>
     <text x="859" y="491">82</text>
-    <text x="824" y="491">83</text>
+    <text x="835" y="491">83</text>
+    <text x="824" y="491">309</text>
     <text x="782" y="226">29</text>
     <text x="782" y="186">30</text>
 
@@ -212,23 +213,21 @@
 
     <!-- Labels van lokalen -->
     <text x="460" y="410">Kantine</text>
-    <!-- Rechterzijde van kantine -->
-    <text x="835" y="450">301</text>
-    <text x="835" y="385">303</text>
-    <text x="835" y="325">305</text>
-    <text x="835" y="260">307</text>
-    <text x="835" y="200">309</text>
-    <text x="835" y="135">311</text>
-    <text x="740" y="385">302</text>
-    <text x="740" y="325">304</text>
-    <text x="740" y="260">306</text>
-    <text x="740" y="200">308</text>
-    <text x="740" y="135">310</text>
-    <text x="750" y="50">312</text>
-    <text x="830" y="50">313</text>
+    <text x="835" y="450">401</text>
+    <text x="835" y="385">403</text>
+    <text x="835" y="325">405</text>
+    <text x="835" y="260">407</text>
+    <text x="835" y="200">409</text>
+    <text x="835" y="135">411</text>
+    <text x="740" y="385">402</text>
+    <text x="740" y="325">404</text>
+    <text x="740" y="260">406</text>
+    <text x="740" y="200">408</text>
+    <text x="740" y="135">410</text>
+    <text x="750" y="50">412</text>
+    <text x="830" y="50">413</text>
     <text x="675" y="450">176</text>
     <text x="570" y="450">174</text>
-    <!-- Boven de kantine -->
     <text x="475" y="270">102</text>
     <text x="405" y="285">103</text>
     <text x="475" y="220">104</text>
@@ -241,6 +240,7 @@
     <text x="305" y="280">113</text>
     <text x="270" y="280">114</text>
     <text x="210" y="215">116</text>
+    <text x="255" y="215">115</text>
     <text x="240" y="280">117</text>
     <text x="210" y="280">118</text>
     <text x="177" y="215">119</text>
@@ -278,7 +278,6 @@
     <text x="380" y="660">164</text> 
     <text x="470" y="660">167</text> 
     <text x="475" y="585">169</text> 
-    
     <text x="129" y="590">152</text> 
     <text x="161" y="590">153</text> 
     <text x="192" y="590">156</text> 
@@ -287,8 +286,5 @@
     <text x="286" y="590">159</text> 
     <text x="318" y="590">162</text> 
     <text x="357" y="590">163</text> 
-
-
-
 
 </svg>
