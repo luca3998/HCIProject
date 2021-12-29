@@ -81,9 +81,9 @@ const firstfloor  = document.getElementById('firstfloor');
 const secondfloor = document.getElementById('secondfloor');
  
 /* svg namespace */
-const svgns = "http://www.w3.org/2000/svg";
-let currentLocation = document.createElementNS(svgns, "circle");
-currentLocation.setAttribute("r", "3");
+const svgns = 'http://www.w3.org/2000/svg';
+let currentLocation = document.createElementNS(svgns, 'circle');
+currentLocation.setAttribute('r', '3');
 
 
 /* Returns count of specified character */
@@ -116,86 +116,105 @@ function drawpath(path)
         let start = graph.vertices[path.shift()];
         let end = graph.vertices[path[0]];
 
-        let l = document.createElementNS(svgns, "line");
-        l.setAttribute("x1", start.x);
-        l.setAttribute("y1", start.y);
-        l.setAttribute("x2", end.x);
-        l.setAttribute("y2", end.y);
-        l.setAttribute("stroke", "red");
-        l.setAttribute("stroke-width", "2");
-        l.setAttribute("stroke-dasharray","8 4 ")
-        getSVGs(start, end).forEach(svg => svg.appendChild(l));
+        let l = document.createElementNS(svgns, 'line');
+        l.setAttribute('x1', start.x);
+        l.setAttribute('y1', start.y);
+        l.setAttribute('x2', end.x);
+        l.setAttribute('y2', end.y);
+        l.setAttribute('stroke', 'red');
+        l.setAttribute('stroke-width', '2');
+        l.setAttribute('stroke-dasharray','8 4 ')
+        getSVGs(start, end).forEach(svg => svg.appendChild(l.cloneNode()));
     }
 }
 
-
+const getType = idx => graph.vertices[idx].type;
+const getZ = idx => graph.vertices[idx].z;
 
 let currentStep = 0;
-const path = shortestPath(localStorage.getItem('start'),localStorage.getItem('end'));
+// const path = shortestPath(localStorage.getItem('start'),localStorage.getItem('end'));
 
 function initialize() {
-    /* Get values from local storage */
-    console.log("Gettingvalues");
-    console.log(localStorage.getItem('start'), localStorage.getItem('end'))
-    localStorage.setItem("overviewmode","disabled");
-    
-    /* Calculate shortest path */
+    /* Get values from local storage and set overview mode*/
+    localStorage.setItem('overviewmode','disabled');    
     let start = localStorage.getItem('start');
     let end = localStorage.getItem('end');
-    drawpath(shortestPath(start,end));
+    let path = shortestPath(start,end);
+    drawpath([...path]);
 
-    generateSteps();
-
+    generateSteps(path);
     updateView(steps[0]);
+    document.getElementById('step_number').innerHTML = `Step ${currentStep+1}`;
 }
 
-let steps = [];
-function generateSteps()
+const steps = [];
+function generateSteps(path)
 {
-    let i;
-    /* Steps 1 to length-2 */
-    for (i = 0; i < path.length-2; i++)
-    {
+    /* Get rotation right for first step */    
+    let i = 0;
+    steps.push({
+        SVG:         getSVG(path[i]),
+        rotation:    getRotation(path[i],path[i+1]),
+        position:    getPosition(path[i]),
+        description: getDescription(path[i-1],path[i], path[i+1])
+    });
+    /* Continue with following steps */
+    for (i = steps.length; i < path.length; i++)
         steps.push({
             SVG:         getSVG(path[i]),
             rotation:    getRotation(path[i-1],path[i]),
             position:    getPosition(path[i]),
             description: getDescription(path[i-1],path[i], path[i+1])
         });
-    }
-    
-    /* last two step */
-    for (i = steps.length; i < path.length; i++)
-    {
-        steps.push({
-            SVG:         getSVG(path[i]),
-            rotation:    steps[i-1].rotation,
-            position:    getPosition(path[i]),
-            description: getDescription(path[i-1], path[i], path[i+1])
-        });
-    }
+
+    removeInterstairs(path, steps);
+    removeDuplicates(steps);        
 }
 
-const getSVG = idx => graph.vertices[idx].z;
+function removeInterstairs(path, steps)
+{
+    for (let idx = path.length-1; 0 <= idx; idx--)
+        if (getType(path[idx]) === 'stairs') {
+            let endFloor = steps[idx].SVG;
+            idx--;
+            while (getType(path[idx]) === 'interstairs') {
+                steps.splice(idx, 1);
+                idx--;
+            }
+            let startFloor = steps[idx].SVG;
+            steps[idx].description = `Go ${startFloor < endFloor ? 'up' : 'down'} the stairs`;
+        }
+}
+function removeDuplicates(steps)
+{    
+    for (let idx = 0; idx < steps.length; idx++)
+        if (steps[idx].description === 'Go straight on')
+        {
+            idx++;
+            while (steps[idx].description === 'Go straight on')
+            steps.splice(idx, 1);
+            idx--;
+        }
+}
+
+const getSVG = idx => `${graph.vertices[idx].z}`[0];
 function setSVG(z)
 {
-    /* get first char from number */
-    z = `${z}`[0];
     switch(z) {
         case '1':
-            document.getElementById("groundfloor").classList.remove("hidden");
-            document.getElementById("firstfloor").classList.add("hidden");
-            document.getElementById("secondfloor").classList.add("hidden");
+            document.getElementById('groundfloor').classList.remove('hidden');
+            document.getElementById('firstfloor').classList.add('hidden');
+            document.getElementById('secondfloor').classList.add('hidden');
             break;
         case '2':
-            document.getElementById("groundfloor").classList.add("hidden");
-            document.getElementById("firstfloor").classList.remove("hidden");
-            document.getElementById("secondfloor").classList.add("hidden");
+            document.getElementById('groundfloor').classList.add('hidden');
+            document.getElementById('firstfloor').classList.remove('hidden');
+            document.getElementById('secondfloor').classList.add('hidden');
             break;
         case '3':
-            document.getElementById("groundfloor").classList.add("hidden");
-            document.getElementById("firstfloor").classList.add("hidden");
-            document.getElementById("secondfloor").classList.remove("hidden");
+            document.getElementById('groundfloor').classList.add('hidden');
+            document.getElementById('firstfloor').classList.add('hidden');
+            document.getElementById('secondfloor').classList.remove('hidden');
             break;
     }
 }
@@ -206,7 +225,7 @@ const getRotation = (start, end) => {
         return 0;
 
     // Calculate x1, x2, change between both, make sure way up is the right one 
-    // let svg = document.querySelector("svg");
+    // let svg = document.querySelector('svg');
     let x1 = graph.vertices[start].x;
     let y1 = graph.vertices[start].y;
     let x2 = graph.vertices[end].x;
@@ -246,8 +265,8 @@ const getPosition = idx => ({
 });
 function setPosition(position)
 {
-    currentLocation.setAttribute("cx", position.x);
-    currentLocation.setAttribute("cy", position.y);
+    currentLocation.setAttribute('cx', position.x);
+    currentLocation.setAttribute('cy', position.y);
     svg.appendChild(currentLocation);
 }
 
@@ -255,29 +274,34 @@ function setPosition(position)
 const getDescription = (previous, current, next) => {
     /* first or last step */
     if (!previous)
-        return "Ga rechtdoor";
+        return 'Go straight on';
     if (!next)
-        return "Bestemming bereikt!";
+        return 'Destination reached!';
     
-    /* Reset button visibility */
-    document.getElementById("previousButton").classList.remove("hidden"); // show the the previous button
-    document.getElementById("nextButton").classList.remove("hidden");     // show the next button
+    /* Reset button visibility to visible */
+    document.getElementById('previousButton').classList.remove('hidden');
+    document.getElementById('nextButton').classList.remove('hidden');
     
     let prev = graph.vertices[previous];
     let curr = graph.vertices[current];
         next = graph.vertices[next];
     
     let thresh = 0;
+    let description;
 
-    let description = "";
 
+    /* deur */
+    if (curr.type === 'door') {
+        description = 'Go through the doors';
+    }
+    
     /* rechts */
-    if ((curr.y - prev.y < thresh && curr.x - next.x < thresh)
+    else if ((curr.y - prev.y < thresh && curr.x - next.x < thresh)
     ||(curr.x - prev.x > thresh && curr.y - next.y < thresh)
     ||(curr.y - prev.y > thresh && curr.x - next.x > thresh)
     ||(curr.x - prev.x < thresh && curr.y - next.y > thresh)
     ) {
-        description = "Ga naar rechts";
+        description = 'Turn right';
     }
 
     /* links */
@@ -286,52 +310,42 @@ const getDescription = (previous, current, next) => {
     || (curr.y - prev.y > thresh && curr.x - next.x < thresh)
     || (curr.x - prev.x < thresh && curr.y - next.y < thresh)
     ) {
-        description = "Ga naar links";
-    }
-    
-    /* deur */
-    else if(curr.type === "door") {
-        description = "Ga door de deur";
-    }
-    
-    /* trap */
-    else if(curr.type === "stairs") {
-        description = "Ga de trap op";
+        description = 'Turn left';
     }
 
     /* rechtdoor */
     else {
-        description = "Ga rechtdoor";
+        description = 'Go straight on';
     }
     
     return description;
 };
 function setDescription(description) {
-    document.getElementById("description_container").innerHTML = description;
+    document.getElementById('description_container').innerHTML = description;
 }
 
 function setViewBox(position)
 {
-    svg.setAttribute("viewBox", `${position.x-100} ${position.y-100} 200 200`);
+    svg.setAttribute('viewBox', `${position.x-100} ${position.y-100} 200 200`);
 }
+
 function setButtonVisibility()
 {
     /* first step */
     if (currentStep === 0) {
-        document.getElementById("previousButton").classList.add("hidden");
-        document.getElementById("nextButton").classList.remove("hidden");
+        document.getElementById('previousButton').classList.add('hidden');
+        document.getElementById('nextButton').classList.remove('hidden');
     }
     /* last step */
-    else if (currentStep === path.length-1) {
-        document.getElementById("previousButton").classList.remove("hidden");
-        document.getElementById("nextButton").classList.add("hidden");
+    else if (currentStep === steps.length-1) {
+        document.getElementById('previousButton').classList.remove('hidden');
+        document.getElementById('nextButton').classList.add('hidden');
     }
     /* other steps */
     else {
-        document.getElementById("previousButton").classList.remove("hidden");
-        document.getElementById("nextButton").classList.remove("hidden");
+        document.getElementById('previousButton').classList.remove('hidden');
+        document.getElementById('nextButton').classList.remove('hidden');
     }
-
 }
 
 function updateView(step)
@@ -346,182 +360,36 @@ function updateView(step)
 
 function nextStep() {
     currentStep++;
-    document.getElementById("step_number").innerHTML = `Step ${currentStep+1}`;
+    document.getElementById('step_number').innerHTML = `Step ${currentStep+1}`;
     updateView(steps[currentStep]);
 }
 
 function previousStep() {
     currentStep--;
-    document.getElementById("step_number").innerHTML = `Step ${currentStep+1}`;
+    document.getElementById('step_number').innerHTML = `Step ${currentStep+1}`;
     updateView(steps[currentStep]);
 }
 
 
 
 function toggleZoom(){
-    let svg = document.querySelector("svg");
-    if(localStorage.getItem("overviewmode") == "disabled"){
-        let z = graph.vertices[path[currentStep]].z;
-        switch(z){ // Om de juiste svg te laden 
-            case 1:
-                svg.setAttribute("viewBox", "300 100 600 600"); 
+    if(localStorage.getItem('overviewmode') === 'disabled')
+    {
+        let z = steps[currentStep].SVG;
+        switch(z) {
+            case '1':
+                svg.setAttribute('viewBox', '300 100 600 600'); 
                 break;
-            case 2:
-                svg.setAttribute("viewBox", "0 -50 900 900"); 
+            case '2':
+                svg.setAttribute('viewBox', '0 -50 900 900'); 
                 break;
-            case 3:
-                svg.setAttribute("viewBox", "-100 80 700 700"); 
+            case '3':
+                svg.setAttribute('viewBox', '-100 80 700 700'); 
                 break;
         }
-
-        localStorage.setItem("overviewmode", "enabled");
+        localStorage.setItem('overviewmode', 'enabled');
     } else {
-        localStorage.setItem("overviewmode","disabled");
-        svg.setAttribute("viewBox", (graph.vertices[path[currentStep]].x-150) + ' ' + (graph.vertices[path[currentStep]].y-150) + " 300 300"); 
+        localStorage.setItem('overviewmode','disabled');
+        svg.setAttribute('viewBox', `${steps[currentStep].position.x-100} ${steps[currentStep].position.y-100} 200 200`); 
     }
 }
-
-
-
-
-
-// function updateMap(){
-    
-//     /* Set svg */
-//     let z  = graph.vertices[path[currentStep]].z;
-//     switch(z){ // Om de juiste svg te laden 
-//         case 1:
-//             document.getElementById("groundfloor").classList.remove("hidden");
-//             document.getElementById("firstfloor").classList.add("hidden");
-//             document.getElementById("secondfloor").classList.add("hidden");
-//             break;
-//         case 2:
-//             document.getElementById("groundfloor").classList.add("hidden");
-//             document.getElementById("firstfloor").classList.remove("hidden");
-//             document.getElementById("secondfloor").classList.add("hidden");
-//             break;
-//         case 3:
-//             document.getElementById("groundfloor").classList.add("hidden");
-//             document.getElementById("firstfloor").classList.add("hidden");
-//             document.getElementById("secondfloor").classList.remove("hidden");
-//             break;
-//     }
-
-//     // Calculate x1, x2, change between both, make sure way up is the right one 
-//     // let svg = document.querySelector("svg");
-//     let x1 = graph.vertices[path[currentStep]].x; 
-//     let y1 = graph.vertices[path[currentStep]].y; 
-//     let x2 = graph.vertices[path[currentStep+1]].x;
-//     let y2 = graph.vertices[path[currentStep+1]].y; 
-
-//     /* Set current position */
-//     currentLocation.setAttribute("cx", x1);
-//     currentLocation.setAttribute("cy", y1);
-//     svg.appendChild(currentLocation);
-
-//     /* Center viewBox around current position */
-//     svg.setAttribute("viewBox", `${x1-100} ${y1-100} 200 200`);
-
-//     /* Set rotation for current step and rotate labels */
-//     let diff_x = x1 - x2; // if positive, west, negative, east
-//     let diff_y = y1 - y2; // if positive, north, negative, south
-
-//     if (Math.abs(diff_x) >= Math.abs(diff_y))
-//         rotation[currentStep] ||= diff_x > 0 ? 90 : 270;
-//     else
-//         rotation[currentStep] ||= diff_y > 0 ? 0 : 180;
-    
-//     svg.classList.remove(svg.classList[5]); // remove rotation
-//     svg.classList.add(`rotate-${rotation[currentStep-1]}`); // add rotation
-//     rotateLabels(svg, rotation[currentStep-1]);
-    
-//     /* Set description for current step */
-//     defineDescriptions();
-// }
-
-// function defineDescriptions(){
-//     // Kijken naar de aangrenzende nodes en op basis daarvan een direction definieren 
-//     console.log(currentStep, path.length);
-//     if(currentStep > 0 && currentStep < path.length-2){
-//         document.getElementById("previousButton").classList.remove("hidden"); // show the the previous button
-//         document.getElementById("nextButton").classList.remove("hidden"); // show the next button
-//         let prev = graph.vertices[path[currentStep-1]];
-//         let curr = graph.vertices[path[currentStep]];
-//         let next = graph.vertices[path[currentStep+1]];
-        
-//         let thresh = 0;
-
-//         /* rechts */
-//         if ((curr.y - prev.y < thresh && curr.x - next.x < thresh)
-//         ||(curr.x - prev.x > thresh && curr.y - next.y < thresh)
-//         ||(curr.y - prev.y > thresh && curr.x - next.x > thresh)
-//         ||(curr.x - prev.x < thresh && curr.y - next.y > thresh)
-//         ){
-//             // document.getElementById("description_container").innerHTML = "Ga naar rechts";
-//             steps[currentStep].description = "Ga naar rechts";
-//         }    
-//         /* links */
-//         else if ((curr.y - prev.y < thresh && curr.x - next.x > thresh)
-//         || (curr.x - prev.x > thresh && curr.y - next.y > thresh)
-//         || (curr.y - prev.y > thresh && curr.x - next.x < thresh)
-//         || (curr.x - prev.x < thresh && curr.y - next.y < thresh)
-//         ){
-//             // document.getElementById("description_container").innerHTML = "Ga naar links";
-//             steps[currentStep].description = "Ga naar links";
-
-//         }
-//         else {
-//             if(curr.type === "door"){
-//                 // document.getElementById("description_container").innerHTML = "Ga door de deur";
-//                 steps[currentStep].description = "Ga door de deur";
-
-//             } else if(curr.type === "stairs"){
-//                 // z1 = currentstep.z
-//                 // while curr.type === interstairs: currentstep++
-//                 // if z2 > z1 index
-//                 // document.getElementById("description_container").innerHTML = "Ga de trap op!";
-//                 steps[currentStep].description = "Ga de trap op";
-//             }
-            
-//             else{
-//                 // document.getElementById("description_container").innerHTML = "Ga rechtdoor";
-//                 steps[currentStep].description = "Ga rechtdoor";
-//             }
-//         }
-//     }
-//     //  else if (currentStep+1 === path.length-1) {
-//     //     // document.getElementById("description_container").innerHTML = "Bestemming bereikt";
-//     //     steps[currentStep].description = "Bestemming bereikt";
-
-//     //     document.getElementById("nextButton").classList.add("hidden"); // hide the next button
-
-//     //         } 
-//     else if (currentStep === path.length - 1){
-//         document.getElementById("nextButton").classList.add("hidden"); // hide the next button
-//     } 
-    
-//     else {
-//         document.getElementById("previousButton").classList.add("hidden"); // hide the previous button, this is step 1
-//         document.getElementById("nextButton").classList.remove("hidden"); // show the next button, this is step 1
-//         // document.getElementById("description_container").innerHTML = "Ga rechtdoor";
-//         steps[currentStep].description = "Ga rechtdoor";
-//     }
-// }
-
-
-
-
-
-// elke trap kent uiteindes en tussenstappen
-// bij elk uiteinde wordt doorgestapt naar het volgende uiteinde
-// elke tussenstap wordt uit het kortste pad verwijderd
-// het verschil in z-waarde tussen beide uiteindes wordt gebruikt om de richting te bepalen
-
-// wanneer het volgende punt een deur is, zal de gebruiker gevraagd worden door de deur te gaan
-
-// wanneer de gebruiker bij het volgende punt rechtdoor moet (en het punt geen deur is) wordt het punt verwijderd uit het kortste pad
-
-// bij 'multilokalen' wordt de verbindende knoop nooit weergegeven:
-//   bij vertrek start de route bij een deur
-//   bij aankomst eindigt de route bij een deur
-
