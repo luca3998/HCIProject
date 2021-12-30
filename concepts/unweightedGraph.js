@@ -345,7 +345,7 @@ const graph = {
     /*  27 */ {x:852,y:509,z:12,type:'interstairs',queries:[]},
     /*  28 */ {x:782,y:244,z:1,type:'door',queries:[]},
     /*  29 */ {x:782,y:226,z:12,type:'stairs',queries:[]},
-    /*  30 */ {x:782,y:186,z:12,type:'stairs',queries:[]},
+    /*  30 */ {x:782,y:186,z:2,type:'stairs',queries:[]},
     /*  31 */ {x:441,y:501,z:1,type:'',queries:[]},
     /*  32 */ {x:441,y:530,z:1,type:'door',queries:[]},
     /*  33 */ {x:441,y:559,z:1,type:'',queries:[]},
