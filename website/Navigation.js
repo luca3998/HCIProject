@@ -177,12 +177,18 @@ function removeInterstairs(path, steps)
         if (getType(path[idx]) === 'stairs') {
             let endFloor = steps[idx].SVG;
             idx--;
+            
+            if (getType(path[idx]) !== 'interstairs')
+                continue;
+            
             while (getType(path[idx]) === 'interstairs') {
                 steps.splice(idx, 1);
                 idx--;
             }
+            
             let startFloor = steps[idx].SVG;
             steps[idx].description = `Go ${startFloor < endFloor ? 'up' : 'down'} the stairs`;
+            idx++;
         }
 }
 function removeDuplicates(steps)
